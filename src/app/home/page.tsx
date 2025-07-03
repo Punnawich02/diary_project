@@ -1,4 +1,5 @@
 "use client";
+
 import React from "react";
 import Image from "next/image";
 import banner from "../../../public/banner.png";
@@ -6,7 +7,7 @@ import howtouse from "../../../public/howtouse.png";
 
 export default function HomePage() {
   return (
-    <main className="bg-white min-h-screen">
+    <main className="bg-white min-h-screen font-[Prompt]">
       <div className="relative flex justify-center">
         <Image src={banner} alt="Health Diary" className="object-cover" />
         <div className="absolute left-6 sm:left-10 md:left-12 top-1/2 transform -translate-y-1/2 p-4 sm:p-6">
@@ -91,14 +92,6 @@ export default function HomePage() {
                   </div>
                   <span className="noto-sans-thai text-lg">
                     ดูประวัติย้อนหลัง
-                  </span>
-                </div>
-                <div className="flex items-center gap-4">
-                  <div className="w-9 h-9 bg-[#ffc2d1] rounded-lg flex items-center justify-center">
-                    <span className="text-black-800 text-lg">✓</span>
-                  </div>
-                  <span className="noto-sans-thai text-lg">
-                    เพิ่มเหตุการณ์สำคัญ
                   </span>
                 </div>
               </div>
