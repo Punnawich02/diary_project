@@ -6,7 +6,6 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../src/generated/prisma"
 }
 
 datasource db {
@@ -20,7 +19,7 @@ model User {
   first_name    String?
   last_name     String?
   sex           String?
-  national_id   String?   @unique
+  citizen_id   String?   @unique
   birth_date    DateTime?
   address       String?
   phone_number  String?
@@ -33,7 +32,7 @@ model User {
 
   diaries       Diary[]
 
-  @@index([national_id])
+  @@index([citizen_id])
   @@index([hn_number])
   @@index([line_user_id])
   @@index([email])
