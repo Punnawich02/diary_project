@@ -1,0 +1,65 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  user_id       Int      @id @default(autoincrement())
+  prefix        String?   
+  first_name    String?
+  last_name     String?
+  sex           String?
+  national_id   String?   @unique
+  birth_date    DateTime?
+  address       String?
+  phone_number  String?
+  email         String?  @unique
+  hn_number     String?  @unique
+  line_user_id  String?  @unique
+  role          UserRole @default(USER)
+  created_at    DateTime @default(now())
+  updated_at    DateTime @updatedAt
+
+  diaries       Diary[]
+
+  @@index([national_id])
+  @@index([hn_number])
+  @@index([line_user_id])
+  @@index([email])
+  @@index([role])
+}
+
+model Diary {
+  diary_id                Int      @id @default(autoincrement())
+  user_id                 Int
+  diary_date              DateTime
+  symptoms                String?
+  pain_level              Int?
+  breakfast_description   String?
+  lunch_description       String?
+  dinner_description      String?
+  created_at              DateTime @default(now())
+  updated_at              DateTime @updatedAt
+
+  user                    User     @relation(fields: [user_id], references: [user_id], onDelete: Cascade)
+
+  @@index([user_id])
+  @@index([diary_date])
+  @@unique([user_id, diary_date])
+}
+
+enum UserRole {
+  ADMIN
+  USER
+}

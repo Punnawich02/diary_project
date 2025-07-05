@@ -7,7 +7,7 @@ import howtouse from "../../../public/howtouse.png";
 
 export default function HomePage() {
   return (
-    <main className="bg-white min-h-screen font-[Prompt]">
+    <main className="bg-white min-h-screen font-[Noto_Serif_Thai]">
       <div className="relative flex justify-center">
         <Image src={banner} alt="Health Diary" className="object-cover" />
         <div className="absolute left-6 sm:left-10 md:left-12 top-1/2 transform -translate-y-1/2 p-4 sm:p-6">

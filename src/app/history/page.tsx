@@ -121,7 +121,7 @@ export default function HistoryPage() {
   };
 
   return (
-    <main className="bg-gray-50 min-h-screen font-[Prompt]">
+    <main className="bg-gradient-to-tr from-pink-100 via-white to-pink-50 min-h-screen font-[Noto_Serif_Thai]">
       <div className="container mx-auto px-4 py-8 max-w-7xl">
         {/* Header */}
         <div className="mb-8">
@@ -143,7 +143,7 @@ export default function HistoryPage() {
                 placeholder="ค้นหาด้วยอาการ, อาหาร หรือวันที่..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-black"
               />
             </div>
 
@@ -152,7 +152,7 @@ export default function HistoryPage() {
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as "date" | "painScore")}
-                className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-black"
               >
                 <option value="date">เรียงตามวันที่</option>
                 <option value="painScore">เรียงตามคะแนนความปวด</option>
@@ -160,7 +160,7 @@ export default function HistoryPage() {
               
               <button
                 onClick={() => setSortOrder(sortOrder === "asc" ? "desc" : "asc")}
-                className="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 focus:ring-2 focus:ring-blue-500"
+                className="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 focus:ring-2 focus:ring-blue-500 text-black"
               >
                 {sortOrder === "asc" ? "↑" : "↓"}
               </button>
@@ -185,7 +185,6 @@ export default function HistoryPage() {
                         {formatDate(entry.date)}
                       </h3>
                       <div className="flex items-center gap-2 mt-1">
-                        <span className="text-sm text-gray-600">ID: {entry.id}</span>
                         <span className={`px-2 py-1 rounded-full text-xs font-medium ${getPainScoreColor(entry.painScore)}`}>
                           ความปวด: {entry.painScore}/10
                         </span>

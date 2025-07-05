@@ -79,7 +79,7 @@ export default function HomePage() {
   const calendarDays = generateCalendarDays();
 
   return (
-    <main className="bg-white min-h-screen text-black w-full font-[Prompt]">
+    <main className="bg-gradient-to-tr from-pink-100 via-white to-pink-50 min-h-screen font-[Noto_Serif_Thai] text-black">
       <div className="container mx-auto px-4 py-8 max-w-screen-xl">
         <div className="bg-white rounded-lg shadow-lg p-4 sm:p-6 max-w-4xl mx-auto">
           {/* Header */}
@@ -178,6 +178,12 @@ export default function HomePage() {
                   </svg>
                 </button>
               </div>
+              <button
+                onClick={() => setCurrentDate(new Date())}
+                className="px-3 sm:px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600 transition-colors text-sm sm:text-base"
+              >
+                วันนี้
+              </button>
             </div>
           </div>
 
@@ -233,36 +239,6 @@ export default function HomePage() {
                 );
               })}
             </div>
-          </div>
-
-          {/* Today Info */}
-          <div className="mt-4 sm:mt-6 text-center">
-            <p className="text-sm sm:text-base text-gray-600">
-              วันนี้: {today.getDate()} {months[today.getMonth()]}{" "}
-              {today.getFullYear()}
-            </p>
-          </div>
-
-          {/* Quick Navigation */}
-          <div className="mt-4 sm:mt-6 flex flex-wrap justify-center gap-2">
-            <button
-              onClick={() => setCurrentDate(new Date())}
-              className="px-3 sm:px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600 transition-colors text-sm sm:text-base"
-            >
-              วันนี้
-            </button>
-            <button
-              onClick={() => changeMonth(-1)}
-              className="px-3 sm:px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors text-sm sm:text-base"
-            >
-              เดือนก่อน
-            </button>
-            <button
-              onClick={() => changeMonth(1)}
-              className="px-3 sm:px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors text-sm sm:text-base"
-            >
-              เดือนหน้า
-            </button>
           </div>
         </div>
       </div>

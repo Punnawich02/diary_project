@@ -27,7 +27,7 @@ export default function DiaryPage() {
   ];
 
   return (
-    <main className="bg-white min-h-screen text-black w-full font-[Prompt]">
+    <main className="bg-white min-h-screen text-black w-full font-[Noto_Serif_Thai]">
       <div className="container mx-auto px-4 py-8 max-w-screen-xl">
         <div className="max-w-4xl mx-auto">
           {/* Header */}
@@ -61,7 +61,43 @@ export default function DiaryPage() {
               กลับสู่ปฏิทิน
             </button>
           </div>
+          {/* Quick Navigation */}
+          <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-4 mb-5">
+            <button
+              onClick={() => {
+                const prevDate = new Date(year, month - 1, day - 1);
+                router.push(
+                  `/diary/${prevDate.getFullYear()}-${
+                    prevDate.getMonth() + 1
+                  }-${prevDate.getDate()}`
+                );
+              }}
+              className="p-3 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors text-center hover:cursor-pointer"
+            >
+              ← วันก่อนหน้า
+            </button>
 
+            <button
+              onClick={() => router.push("/")}
+              className="p-3 bg-pink-100 rounded-lg hover:bg-pink-200 transition-colors text-center hover:cursor-pointer"
+            >
+              📅 ปฏิทิน
+            </button>
+
+            <button
+              onClick={() => {
+                const nextDate = new Date(year, month - 1, day + 1);
+                router.push(
+                  `/diary/${nextDate.getFullYear()}-${
+                    nextDate.getMonth() + 1
+                  }-${nextDate.getDate()}`
+                );
+              }}
+              className="p-3 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors text-center hover:cursor-pointer"
+            >
+              วันถัดไป →
+            </button>
+          </div>
           <div className="bg-white rounded-lg shadow-lg p-6">
             {/* Symptom */}
             <div className="mb-6">
@@ -80,7 +116,6 @@ export default function DiaryPage() {
                 } ${year}`}
               />
             </div>
-
             {/* Symptom Photo Upload */}
             <div className="mb-6">
               <label
@@ -117,15 +152,15 @@ export default function DiaryPage() {
                 </label>
                 <span className="text-gray-500 text-sm" id="file-name"></span>
               </div>
-            </div> <hr className="mb-4"/>
-
+            </div>{" "}
+            <hr className="mb-4" />
             {/* Pain Score */}
             <div className="mb-6">
               <label
                 htmlFor="pain-score"
                 className="block text-xl font-medium text-black mb-2"
               >
-                คะแนนความเจ็บปวด:
+                ระดับความเจ็บปวดของวันนี้:
               </label>
               <input
                 type="range"
@@ -148,8 +183,8 @@ export default function DiaryPage() {
                 <span>9</span>
                 <span>10</span>
               </div>
-            </div> <hr className="mb-4"/>
-
+            </div>{" "}
+            <hr className="mb-4" />
             {/* Breakfast */}
             <div className="mb-6">
               <label
@@ -167,7 +202,6 @@ export default function DiaryPage() {
                 } ${year}`}
               />
             </div>
-
             {/* Breakfast Photo Upload */}
             <div className="mb-6">
               <label
@@ -204,8 +238,8 @@ export default function DiaryPage() {
                 </label>
                 <span className="text-gray-500 text-sm" id="file-name"></span>
               </div>
-            </div> <hr className="mb-4"/>
-
+            </div>{" "}
+            <hr className="mb-4" />
             {/* Lunch */}
             <div className="mb-6">
               <label
@@ -223,7 +257,6 @@ export default function DiaryPage() {
                 } ${year}`}
               />
             </div>
-
             {/* Lunch Photo Upload */}
             <div className="mb-6">
               <label
@@ -260,8 +293,8 @@ export default function DiaryPage() {
                 </label>
                 <span className="text-gray-500 text-sm" id="file-name"></span>
               </div>
-            </div> <hr className="mb-4"/>
-
+            </div>{" "}
+            <hr className="mb-4" />
             {/* Dinner */}
             <div className="mb-6">
               <label
@@ -279,7 +312,6 @@ export default function DiaryPage() {
                 } ${year}`}
               />
             </div>
-
             {/* Dinner Photo Upload */}
             <div className="mb-6">
               <label
@@ -316,52 +348,14 @@ export default function DiaryPage() {
                 </label>
                 <span className="text-gray-500 text-sm" id="file-name"></span>
               </div>
-            </div> <hr className="mb-4"/>
-
+            </div>{" "}
+            <hr className="mb-4" />
             {/* Action Buttons */}
             <div className="flex flex-col justify-end sm:flex-row gap-3 sm:gap-4">
               <button className="px-6 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600 hover:cursor-pointer transition-colors">
                 บันทึกไดอารี่
               </button>
             </div>
-          </div>
-
-          {/* Quick Navigation */}
-          <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <button
-              onClick={() => {
-                const prevDate = new Date(year, month - 1, day - 1);
-                router.push(
-                  `/diary/${prevDate.getFullYear()}-${
-                    prevDate.getMonth() + 1
-                  }-${prevDate.getDate()}`
-                );
-              }}
-              className="p-3 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors text-center hover:cursor-pointer"
-            >
-              ← วันก่อนหน้า
-            </button>
-
-            <button
-              onClick={() => router.push("/")}
-              className="p-3 bg-pink-100 rounded-lg hover:bg-pink-200 transition-colors text-center hover:cursor-pointer"
-            >
-              📅 ปฏิทิน
-            </button>
-
-            <button
-              onClick={() => {
-                const nextDate = new Date(year, month - 1, day + 1);
-                router.push(
-                  `/diary/${nextDate.getFullYear()}-${
-                    nextDate.getMonth() + 1
-                  }-${nextDate.getDate()}`
-                );
-              }}
-              className="p-3 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors text-center hover:cursor-pointer"
-            >
-              วันถัดไป →
-            </button>
           </div>
         </div>
       </div>

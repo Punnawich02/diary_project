@@ -34,7 +34,7 @@ export async function GET(req: NextRequest) {
 
     // เก็บโปรไฟล์ใน cookie
     const response = NextResponse.redirect(
-      new URL("/home", req.nextUrl.origin)
+      new URL("/profile", req.nextUrl.origin)
     );
 
     response.headers.set(

@@ -1,7 +1,13 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Noto_Serif_Thai } from "next/font/google";
 import Headers from '../app/component/Headers';
 import "./globals.css";
+
+const notoSerifThai = Noto_Serif_Thai({
+  subsets: ['thai'],
+  weight: ['400', '700'],
+  display: 'swap',
+})
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,7 +32,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${notoSerifThai.className} antialiased`}
       >
         <Headers />
         {children}
