@@ -79,7 +79,7 @@ export default function HomePage() {
   const calendarDays = generateCalendarDays();
 
   return (
-    <main className="bg-gradient-to-tr from-pink-100 via-white to-pink-50 min-h-screen font-[Noto_Serif_Thai] text-black">
+    <main className="bg-gradient-to-tr from-pink-100 via-white to-pink-50 min-h-screen font-[Prompt] text-black">
       <div className="container mx-auto px-4 py-8 max-w-screen-xl">
         <div className="bg-white rounded-lg shadow-lg p-4 sm:p-6 max-w-4xl mx-auto">
           {/* Header */}

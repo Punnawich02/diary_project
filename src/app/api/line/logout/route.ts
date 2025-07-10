@@ -1,4 +1,4 @@
-// app/api/logout/route.ts
+import { redirect } from "next/navigation";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
@@ -9,6 +9,8 @@ export async function POST(req: NextRequest) {
     "Set-Cookie",
     `lineProfile=; Path=/; HttpOnly; Secure; SameSite=Lax; Expires=Thu, 01 Jan 1970 00:00:00 GMT`
   );
+
+  redirect("/home");
 
   return response;
 }

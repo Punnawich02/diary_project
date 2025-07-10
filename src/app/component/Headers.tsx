@@ -37,7 +37,7 @@ export default function Header() {
   }, []);
 
   useEffect(() => {
-    fetch("/api/profile")
+    fetch("/api/line/profile")
       .then((res) => res.json())
       .then((data) => {
         if (data.profile) setProfile(data.profile);
@@ -47,7 +47,7 @@ export default function Header() {
   }, []);
 
   const logout = () => {
-    redirect("/api/logout");
+    redirect("/api/line/logout");
   };
 
   // Close mobile menu when a menu item is clicked
@@ -112,7 +112,7 @@ export default function Header() {
   console.log("CurrentPage: ", currentPage);
 
   return (
-    <header className="bg-white shadow-md border-b-2 font-[Noto_Serif_Thai] sticky top-0 z-50">
+    <header className="bg-white shadow-md border-b-2 font-[Prompt] sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 font-bold">
         <div className="flex justify-between h-16 items-center">
           <div className="flex items-center">
@@ -186,7 +186,7 @@ export default function Header() {
                   )}
                 </div>
               ) : (
-                <Link href="/api/login">
+                <Link href="/api/line/login">
                   <button className="bg-[#FB6F92] hover:bg-[#FC87A4] text-white px-4 py-2 rounded-md text-sm font-medium focus:outline-none focus:ring-2 focus:ring-pink-300">
                     เข้าสู่ระบบ
                   </button>
@@ -268,7 +268,7 @@ export default function Header() {
               </button>
             </div>
           ) : (
-            <Link href="/api/login">
+            <Link href="/api/line/login">
               <button
                 className="w-full bg-[#FB6F92] text-white px-4 py-2 rounded-md text-base hover:cursor-pointer focus:outline-none"
                 onClick={handleMenuItemClick}

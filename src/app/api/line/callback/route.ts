@@ -1,4 +1,3 @@
-// app/api/callback/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import axios from "axios";
 
@@ -11,7 +10,7 @@ export async function GET(req: NextRequest) {
 
   try {
     const tokenRes = await axios.post(
-      "https://api.line.me/oauth2/v2.1/token",
+      process.env.LINE_TOKEN!,
       new URLSearchParams({
         grant_type: "authorization_code",
         code,
@@ -24,9 +23,9 @@ export async function GET(req: NextRequest) {
       }
     );
 
-    const { access_token, id_token } = tokenRes.data;
+    const { access_token } = tokenRes.data;
 
-    const profileRes = await axios.get("https://api.line.me/v2/profile", {
+    const profileRes = await axios.get(process.env.LINE_PROFILE!, {
       headers: { Authorization: `Bearer ${access_token}` },
     });
 
@@ -34,7 +33,7 @@ export async function GET(req: NextRequest) {
 
     // เก็บโปรไฟล์ใน cookie
     const response = NextResponse.redirect(
-      new URL("/profile", req.nextUrl.origin)
+      new URL("/home", req.nextUrl.origin)
     );
 
     response.headers.set(

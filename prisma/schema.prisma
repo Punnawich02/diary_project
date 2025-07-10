@@ -42,7 +42,7 @@ model User {
 model Diary {
   diary_id                Int      @id @default(autoincrement())
   user_id                 Int
-  diary_date              DateTime
+  diary_date              DateTime @db.Date
   symptoms                String?
   pain_level              Int?
   breakfast_description   String?

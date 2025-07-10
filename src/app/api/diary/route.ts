@@ -1,90 +1,67 @@
 import { PrismaClient } from "@prisma/client";
+import { NextRequest, NextResponse } from "next/server";
 
 const prisma = new PrismaClient();
 
-// For Admin
-export async function GET() {
+// Add new Diary
+export async function POST(req: NextRequest) {
   try {
-    const diaries = await prisma.diary.findMany({
-      select: {
-        diary_id: true,
-        user_id: true,
-        diary_date: true,
-        symptoms: true,
-        pain_level: true,
-        breakfast_description: true,
-        lunch_description: true,
-        dinner_description: true,
-        user: {
-          select: {
-            first_name: true,
-            last_name: true,
-            hn_number: true,
-          },
-        },
-      },
-      orderBy: {
-        diary_date: "desc", // เรียงจากใหม่ไปเก่า
+    // ดึง cookie ออกมา
+    const cookie = req.cookies.get("lineProfile");
+    if (!cookie) {
+      return new Response("Missing lineProfile cookie", { status: 401 });
+    }
+
+    // แยก LineUserID ออกมาจาก cookie
+    const profile = JSON.parse(decodeURIComponent(cookie.value));
+    const lineUserID = profile.userId;
+
+    if (!lineUserID) {
+      return new Response("Invalid lineProfile data", { status: 400 });
+    }
+
+    await prisma.$connect();
+
+    // ค้นหา user จาก lineUserID
+    const user = await prisma.user.findUnique({
+      where: {
+        line_user_id: lineUserID,
       },
     });
 
-    return Response.json(diaries);
-  } catch (error: any) {
-    console.error("GET /diaries error:", error);
-    return new Response(error.message ?? "Internal Server Error", {
-      status: 500,
-    });
-  } finally {
-    await prisma.$disconnect();
-  }
-}
+    if (!user) {
+      return new Response("User not found", { status: 404 });
+    }
 
-// Post new Diary
-export async function POST(req: Request) {
-  try {
-    const data = await req.json();
+    // ✅ แก้ตรงนี้ ให้ชื่อ field ตรงกับ Prisma
+    const body = await req.json();
     const {
-      user_id,
       diary_date,
       symptoms,
       pain_level,
       breakfast_description,
       lunch_description,
       dinner_description,
-    } = data;
+    } = body;
 
-    // Basic validation
-    if (!user_id || !diary_date) {
-      return new Response('user_id and diary_date are required', { status: 400 });
-    }
-
-    // สร้าง diary ใหม่ (ถ้า user_id หรือ diary_date ซ้ำ อาจ error เพราะ unique constraint)
+    // ✅ สร้าง diary โดยใช้ชื่อ field ที่ตรง
     const newDiary = await prisma.diary.create({
       data: {
-        user_id,
+        user_id: user.user_id,
         diary_date: new Date(diary_date),
-        symptoms: symptoms ?? null,
-        pain_level: pain_level ?? null,
-        breakfast_description: breakfast_description ?? null,
-        lunch_description: lunch_description ?? null,
-        dinner_description: dinner_description ?? null,
+        symptoms: symptoms,
+        pain_level: pain_level,
+        breakfast_description: breakfast_description,
+        lunch_description: lunch_description,
+        dinner_description: dinner_description,
       },
     });
 
-    return new Response(JSON.stringify(newDiary), {
-      status: 201,
-      headers: { 'Content-Type': 'application/json' },
-    });
-  } catch (error: any) {
-    console.error('POST /diary error:', error);
-
-    // ถ้า error จาก unique constraint
-    if (error.code === 'P2002') {
-      return new Response('Diary entry for this user and date already exists', {
-        status: 409,
-      });
-    }
-
-    return new Response(error.message ?? 'Internal Server Error', { status: 500 });
+    return NextResponse.json(newDiary, { status: 201 });
+  } catch (error) {
+    console.error("Error creating diary entry:", error);
+    return new Response("Internal server error", { status: 500 });
+  } finally {
+    await prisma.$disconnect();
   }
 }

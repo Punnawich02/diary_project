@@ -3,17 +3,17 @@ import React, { useState } from "react";
 
 // Mockup user data
 const mockUser = {
-  user_id: 1,
-  first_name: "ปุณณวิชญ์",
-  last_name: "เดชอินทร์",
-  national_id: "1619900428822",
-  birth_date: "2003-10-02",
-  address: "456 ถนนสุขุมวิท กรุงเทพฯ 10110",
-  phone_number: "0812345678",
-  email: "punnawich@email.com",
-  hn_number: "HN001234",
-  line_user_id: "U9c0b8a2b36682b5557ea6f4806442ae8",
-  role: "user",
+  first_name: "",
+  last_name: "",
+  sex: "",
+  national_id: "",
+  birth_date: "",
+  address: "",
+  phone_number: "",
+  email: "",
+  hn_number: "",
+  line_user_id: "",
+  role: "",
 };
 
 export default function ProfilePage() {
@@ -66,9 +66,6 @@ export default function ProfilePage() {
         <h1 className="text-2xl sm:text-4xl font-extrabold text-pink-700 mb-1 drop-shadow text-center">
           {user.first_name} {user.last_name}
         </h1>
-        <p className="text-base sm:text-lg text-gray-600 text-center">
-          โปรไฟล์ของคุณในระบบสมุดบันทึกสุขภาพ
-        </p>
       </div>
       {/* Profile Section */}
       <div className="container mx-auto px-2 sm:px-4 py-6 sm:py-8 text-black">
@@ -109,6 +106,21 @@ export default function ProfilePage() {
                       onChange={handleChange}
                     />
                   </div>
+                </div>
+                <div className="mb-3 sm:mb-4">
+                  <label className="font-semibold block mb-1" htmlFor="email">
+                    เพศโดยกำเนิด
+                  </label>
+                  <input
+                    id="sex"
+                    name="sex"
+                    type="text"
+                    className="w-full rounded-lg border border-pink-200 px-3 py-2 bg-pink-50 focus:outline-none focus:ring-2 focus:ring-pink-300"
+                    value={isEditing ? formData.sex : user.sex}
+                    placeholder="เพศโดยกำเนิด"
+                    disabled={!isEditing}
+                    onChange={handleChange}
+                  />
                 </div>
                 <div className="mb-3 sm:mb-4">
                   <label className="font-semibold block mb-1" htmlFor="email">

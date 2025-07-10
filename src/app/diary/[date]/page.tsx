@@ -27,7 +27,7 @@ export default function DiaryPage() {
   ];
 
   return (
-    <main className="bg-white min-h-screen text-black w-full font-[Noto_Serif_Thai]">
+    <main className="bg-white min-h-screen text-black w-full font-[Prompt]">
       <div className="container mx-auto px-4 py-8 max-w-screen-xl">
         <div className="max-w-4xl mx-auto">
           {/* Header */}

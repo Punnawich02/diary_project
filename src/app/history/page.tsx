@@ -37,7 +37,7 @@ export default function HistoryPage() {
         lunch: "ข้าวผัดไก่ ต้มส้มปลา",
         lunchPhoto: "/images/lunch1.jpg",
         dinner: "ข้าวกับแกงเขียวหวานไก่",
-        dinnerPhoto: "/images/dinner1.jpg"
+        dinnerPhoto: "/images/dinner1.jpg",
       },
       {
         id: "2",
@@ -46,7 +46,7 @@ export default function HistoryPage() {
         painScore: 5,
         breakfast: "โจ๊ก",
         lunch: "ข้าวต้ม น้ำเปล่า",
-        dinner: "ข้าวขาว ไก่ต้ม"
+        dinner: "ข้าวขาว ไก่ต้ม",
       },
       {
         id: "3",
@@ -59,24 +59,26 @@ export default function HistoryPage() {
         lunch: "ข้าวผัดกุ้ง ต้มยำกุ้ง",
         lunchPhoto: "/images/lunch3.jpg",
         dinner: "พิซซ่า สลัด",
-        dinnerPhoto: "/images/dinner3.jpg"
-      }
+        dinnerPhoto: "/images/dinner3.jpg",
+      },
     ];
     setDiaryEntries(mockData);
   }, []);
 
   // กรองและเรียงลำดับข้อมูล
   const filteredAndSortedEntries = diaryEntries
-    .filter(entry => 
-      entry.symptom.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      entry.breakfast.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      entry.lunch.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      entry.dinner.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      entry.date.includes(searchTerm)
+    .filter(
+      (entry) =>
+        entry.symptom.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        entry.breakfast.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        entry.lunch.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        entry.dinner.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        entry.date.includes(searchTerm)
     )
     .sort((a, b) => {
       if (sortBy === "date") {
-        const comparison = new Date(a.date).getTime() - new Date(b.date).getTime();
+        const comparison =
+          new Date(a.date).getTime() - new Date(b.date).getTime();
         return sortOrder === "asc" ? comparison : -comparison;
       } else {
         const comparison = a.painScore - b.painScore;
@@ -86,10 +88,10 @@ export default function HistoryPage() {
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString('th-TH', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
+    return date.toLocaleDateString("th-TH", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
     });
   };
 
@@ -102,7 +104,7 @@ export default function HistoryPage() {
 
   const PhotoDisplay = ({ src, alt }: { src?: string; alt: string }) => {
     if (!src) return <span className="text-gray-400 text-sm">ไม่มีรูปภาพ</span>;
-    
+
     return (
       <div className="relative w-16 h-16 rounded-lg overflow-hidden">
         <Image
@@ -112,8 +114,9 @@ export default function HistoryPage() {
           className="object-cover"
           onError={(e) => {
             const target = e.target as HTMLImageElement;
-            target.style.display = 'none';
-            target.parentElement!.innerHTML = '<span class="text-gray-400 text-xs flex items-center justify-center h-full">No Image</span>';
+            target.style.display = "none";
+            target.parentElement!.innerHTML =
+              '<span class="text-gray-400 text-xs flex items-center justify-center h-full">No Image</span>';
           }}
         />
       </div>
@@ -121,7 +124,7 @@ export default function HistoryPage() {
   };
 
   return (
-    <main className="bg-gradient-to-tr from-pink-100 via-white to-pink-50 min-h-screen font-[Noto_Serif_Thai]">
+    <main className="bg-gradient-to-tr from-pink-100 via-white to-pink-50 min-h-screen font-[Prompt]">
       <div className="container mx-auto px-4 py-8 max-w-7xl">
         {/* Header */}
         <div className="mb-8">
@@ -151,15 +154,19 @@ export default function HistoryPage() {
             <div className="flex gap-2">
               <select
                 value={sortBy}
-                onChange={(e) => setSortBy(e.target.value as "date" | "painScore")}
+                onChange={(e) =>
+                  setSortBy(e.target.value as "date" | "painScore")
+                }
                 className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-black"
               >
                 <option value="date">เรียงตามวันที่</option>
                 <option value="painScore">เรียงตามคะแนนความปวด</option>
               </select>
-              
+
               <button
-                onClick={() => setSortOrder(sortOrder === "asc" ? "desc" : "asc")}
+                onClick={() =>
+                  setSortOrder(sortOrder === "asc" ? "desc" : "asc")
+                }
                 className="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 focus:ring-2 focus:ring-blue-500 text-black"
               >
                 {sortOrder === "asc" ? "↑" : "↓"}
@@ -176,7 +183,10 @@ export default function HistoryPage() {
             </div>
           ) : (
             filteredAndSortedEntries.map((entry) => (
-              <div key={entry.id} className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+              <div
+                key={entry.id}
+                className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden"
+              >
                 {/* Entry Header */}
                 <div className="bg-gray-50 px-6 py-4 border-b border-gray-200">
                   <div className="flex justify-between items-start">
@@ -185,13 +195,21 @@ export default function HistoryPage() {
                         {formatDate(entry.date)}
                       </h3>
                       <div className="flex items-center gap-2 mt-1">
-                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${getPainScoreColor(entry.painScore)}`}>
+                        <span
+                          className={`px-2 py-1 rounded-full text-xs font-medium ${getPainScoreColor(
+                            entry.painScore
+                          )}`}
+                        >
                           ความปวด: {entry.painScore}/10
                         </span>
                       </div>
                     </div>
                     <button
-                      onClick={() => setSelectedEntry(selectedEntry?.id === entry.id ? null : entry)}
+                      onClick={() =>
+                        setSelectedEntry(
+                          selectedEntry?.id === entry.id ? null : entry
+                        )
+                      }
                       className="text-blue-600 hover:text-blue-800 font-medium"
                     >
                       {selectedEntry?.id === entry.id ? "ย่อ" : "ดูรายละเอียด"}
@@ -216,7 +234,7 @@ export default function HistoryPage() {
                   </div>
 
                   {/* Meals Section */}
-                  {(selectedEntry?.id === entry.id) && (
+                  {selectedEntry?.id === entry.id && (
                     <div className="space-y-4 border-t pt-6">
                       {/* Breakfast */}
                       <div>
@@ -228,7 +246,10 @@ export default function HistoryPage() {
                           <div className="flex-1">
                             <p className="text-gray-700">{entry.breakfast}</p>
                           </div>
-                          <PhotoDisplay src={entry.breakfastPhoto} alt="รูปอาหารเช้า" />
+                          <PhotoDisplay
+                            src={entry.breakfastPhoto}
+                            alt="รูปอาหารเช้า"
+                          />
                         </div>
                       </div>
 
@@ -242,7 +263,10 @@ export default function HistoryPage() {
                           <div className="flex-1">
                             <p className="text-gray-700">{entry.lunch}</p>
                           </div>
-                          <PhotoDisplay src={entry.lunchPhoto} alt="รูปอาหารเที่ยง" />
+                          <PhotoDisplay
+                            src={entry.lunchPhoto}
+                            alt="รูปอาหารเที่ยง"
+                          />
                         </div>
                       </div>
 
@@ -256,7 +280,10 @@ export default function HistoryPage() {
                           <div className="flex-1">
                             <p className="text-gray-700">{entry.dinner}</p>
                           </div>
-                          <PhotoDisplay src={entry.dinnerPhoto} alt="รูปอาหารเย็น" />
+                          <PhotoDisplay
+                            src={entry.dinnerPhoto}
+                            alt="รูปอาหารเย็น"
+                          />
                         </div>
                       </div>
                     </div>
@@ -270,21 +297,32 @@ export default function HistoryPage() {
         {/* Summary Stats */}
         {diaryEntries.length > 0 && (
           <div className="mt-8 bg-white rounded-lg shadow-sm p-6">
-            <h3 className="font-semibold text-lg text-gray-800 mb-4">สถิติสรุป</h3>
+            <h3 className="font-semibold text-lg text-gray-800 mb-4">
+              สถิติสรุป
+            </h3>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div className="text-center">
-                <div className="text-2xl font-bold text-blue-600">{diaryEntries.length}</div>
+                <div className="text-2xl font-bold text-blue-600">
+                  {diaryEntries.length}
+                </div>
                 <div className="text-sm text-gray-600">บันทึกทั้งหมด</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl font-bold text-green-600">
-                  {Math.round((diaryEntries.reduce((sum, entry) => sum + entry.painScore, 0) / diaryEntries.length) * 10) / 10}
+                  {Math.round(
+                    (diaryEntries.reduce(
+                      (sum, entry) => sum + entry.painScore,
+                      0
+                    ) /
+                      diaryEntries.length) *
+                      10
+                  ) / 10}
                 </div>
                 <div className="text-sm text-gray-600">คะแนนความปวดเฉลี่ย</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl font-bold text-purple-600">
-                  {diaryEntries.filter(entry => entry.painScore === 0).length}
+                  {diaryEntries.filter((entry) => entry.painScore === 0).length}
                 </div>
                 <div className="text-sm text-gray-600">วันที่ไม่มีอาการ</div>
               </div>
